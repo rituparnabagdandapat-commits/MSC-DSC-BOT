@@ -1,15 +1,13 @@
-import discord, os
-from discord.ext import commands
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix="?", intents=intents)
+from flask import Flask
+from threading import Thread
+import os
 
-@bot.event
-async def on_ready():
-    print(f"GREEN ONLINE {bot.user}")
+app = Flask('')
+@app.route('/')
+def home():
+    return "MBS BOT IS ALIVE!"
 
-@bot.command()
-async def hello(ctx):
-    await ctx.send("Bot is ONLINE 🟢")
+def run():
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
 
-bot.run(os.getenv("DISCORD_TOKEN"))
+Thread(target=run).start()
