@@ -1,13 +1,19 @@
-from flask import Flask
 from threading import Thread
-import os
+from flask import Flask
 
 app = Flask('')
+
 @app.route('/')
 def home():
     return "MBS BOT IS ALIVE!"
 
 def run():
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
+  app.run(host='0.0.0.0', port=8080)
 
-Thread(target=run).start()
+def keep_alive():
+  t = Thread(target=run)
+  t.start()
+
+# At the very bottom of your file
+keep_alive()
+bot.run(os.getenv("DISCORD_TOKEN"))  # or TOKEN
